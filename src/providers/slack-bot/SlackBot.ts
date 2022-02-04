@@ -86,7 +86,8 @@ export class SlackBot {
         const splittedMessage = msg.split(" ");
 
         for (const slice of splittedMessage) {
-          const similarity = stringSimilarity.compareTwoStrings(slice, keyword);
+          const similarity = stringSimilarity.compareTwoStrings(slice.toLocaleLowerCase(), keyword.toLocaleLowerCase());
+
           if (similarity > 0.6) {
             return faqItem.answer;
           }
