@@ -1,13 +1,12 @@
 import "reflect-metadata"; //! THIS IMPORT MUST ALWAYS COME FIRST. BEWARE VSCODE AUTO IMPORT SORT!!!
-import "express-async-errors";
-import "dotenv/config";
-
 import cors from "cors";
+import "dotenv/config";
 import express from "express";
+import "express-async-errors";
 import { getRouteInfo, InversifyExpressServer } from "inversify-express-utils";
 import morgan from "morgan";
 import * as prettyjson from "prettyjson";
-import { container, serverHelper, slackBot } from "./providers/inversify/container";
+import { container, openAI, serverHelper, slackBot } from "./providers/inversify/container";
 import { errorHandlerMiddleware } from "./providers/middlewares/ErrorHandlerMiddleware";
 
 const port = process.env.PORT || 5000;

@@ -1,3 +1,4 @@
+import { OpenAI } from "@providers/open-ai/OpenAI";
 import { SlackBot } from "@providers/slack-bot/SlackBot";
 import { Container } from "inversify";
 import { buildProviderModule } from "inversify-binding-decorators";
@@ -11,5 +12,7 @@ container.load(controllersContainer, buildProviderModule());
 export const serverHelper = container.get<ServerHelper>(ServerHelper);
 
 export const slackBot = container.get<SlackBot>(SlackBot);
+
+export const openAI = container.get<OpenAI>(OpenAI);
 
 export { container };

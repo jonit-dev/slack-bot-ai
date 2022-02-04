@@ -59,6 +59,7 @@
     "mongoose-query-parser": "^1.2.1",
     "node-cron": "^3.0.0",
     "node-json-db": "^1.4.1",
+    "openai": "^2.0.2",
     "prettyjson": "^1.2.5",
     "sift": "^15.1.3",
     "string-similarity": "^4.0.4",
