@@ -8,7 +8,7 @@ export class ServerHelper {
   public showBootstrapMessage(config: { env: string; port: number }): void {
     const { port, env } = config;
 
-    this.consoleHelper.coloredLog(`⚙️  Server running on ${env} mode, listening on port ${port}`, "YELLOW");
+    this.consoleHelper.coloredLog(`🤖 Slack Bolt app is running on ${env} mode, listening on port ${port}`, "YELLOW");
   }
 
   public async sleep(ms): Promise<void> {

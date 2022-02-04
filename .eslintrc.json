@@ -21,7 +21,7 @@
     "padded-blocks": "off",
     "keyword-spacing": "off",
     "camelcase": "off",
-    "require-await": "error",
+    "require-await": "off",
     "no-case-declarations": "off",
     "object-curly-spacing": "off",
     "space-before-function-paren": "off",

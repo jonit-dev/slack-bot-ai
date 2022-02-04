@@ -47,6 +47,7 @@
     "uuid": "^8.3.2"
   },
   "dependencies": {
+    "@slack/bolt": "^3.9.0",
     "apicache-plus": "^2.3.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
