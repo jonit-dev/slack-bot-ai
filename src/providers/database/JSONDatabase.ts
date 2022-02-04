@@ -1,4 +1,4 @@
-import { localDbPath } from "@providers/constants/pathConstants";
+import { dataPath } from "@providers/constants/pathConstants";
 import { NotFoundError } from "@providers/errors/NotFoundError";
 import { provide } from "inversify-binding-decorators";
 import { JsonDB } from "node-json-db";
@@ -11,7 +11,7 @@ export class JSONDatabase {
   private db: JsonDB;
 
   constructor() {
-    this.db = new JsonDB(new Config(`${localDbPath}/dev-database`, true, false, "/"));
+    this.db = new JsonDB(new Config(`${dataPath}/dev-database`, true, false, "/"));
   }
 
   public create<T>(dataPath: string, data: Record<string, unknown>): T {

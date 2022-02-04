@@ -1,3 +1,3 @@
 import path from "path";
 
-export const localDbPath = path.resolve(__dirname, "../data");
+export const dataPath = path.resolve(__dirname, "../data");
