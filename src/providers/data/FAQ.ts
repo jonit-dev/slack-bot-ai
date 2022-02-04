@@ -59,5 +59,10 @@ export const FAQData: IFAQ = {
       answer:
         "Yeah, solving bug sucks... But you can find some interesting information that may help you here: https://thinkific.atlassian.net/wiki/spaces/ENG/pages/233636028/Troubleshooting+Debugging",
     },
+    {
+      keywords: ["stackoverflow"],
+      answer:
+        "I can totally help with Stackoverflow questions if you just ask me! Try: 'search on stackoverflow: \"How to install node modules\"'",
+    },
   ],
 };

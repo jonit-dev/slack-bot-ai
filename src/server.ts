@@ -5,8 +5,9 @@ import express from "express";
 import "express-async-errors";
 import { getRouteInfo, InversifyExpressServer } from "inversify-express-utils";
 import morgan from "morgan";
+import objectToQuery from "object-to-querystring";
 import * as prettyjson from "prettyjson";
-import { container, openAI, serverHelper, slackBot } from "./providers/inversify/container";
+import { container, serverHelper, slackBot, stackOverflow } from "./providers/inversify/container";
 import { errorHandlerMiddleware } from "./providers/middlewares/ErrorHandlerMiddleware";
 
 const port = process.env.PORT || 5000;

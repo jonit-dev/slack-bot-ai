@@ -1,11 +1,13 @@
 import { FAQData } from "@providers/data/FAQ";
 import { OpenAI } from "@providers/open-ai/OpenAI";
+import { StackOverflow } from "@providers/stack-overflow/StackOverflow";
 import { App } from "@slack/bolt";
 import { provide } from "inversify-binding-decorators";
 import stringSimilarity from "string-similarity";
+
 @provide(SlackBot)
 export class SlackBot {
-  constructor(private openAI: OpenAI) {}
+  constructor(private openAI: OpenAI, private stackOverflow: StackOverflow) {}
 
   public app: App = new App({
     token: process.env.SLACK_BOT_OAUTH_TOKEN,
@@ -53,9 +55,15 @@ export class SlackBot {
   }
 
   private async lineOfTought(payload, submitMessageFn: (response) => void): Promise<void> {
+    const incomingMessage = payload.text as string;
+
     try {
       // Call chat.postMessage with the built-in client
 
+      if (incomingMessage.toLowerCase().includes("search on stackoverflow:")) {
+        await this.checkForStackOverflowQuestions(incomingMessage, submitMessageFn);
+        return;
+      }
       const faqAnswer = this.tryToFindKnowledgeBaseRelatedQuestion(payload);
 
       if (faqAnswer) {
@@ -63,6 +71,8 @@ export class SlackBot {
         // logger.info(result);
         return;
       }
+
+      // check if user asked for stackoverflow help
 
       const genericAIResponse = await this.giveGenericGPT3Answer(payload);
 
@@ -75,6 +85,34 @@ export class SlackBot {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private async checkForStackOverflowQuestions(incomingMessage: string, submitMessageFn): Promise<void> {
+    const query = incomingMessage.split(":")[1];
+
+    console.log(query);
+
+    const search = await this.stackOverflow.search({
+      intitle: query,
+    });
+
+    if (search.items.length === 0) {
+      submitMessageFn("Hmm... I didn't find anything useful for you. Sorry!");
+      return;
+    }
+
+    // get only first 10 results
+    const topResults = search.items.slice(0, 10);
+
+    const formattedResults = topResults.map((item) => {
+      console.log(item.link);
+      return `💡 ${item.title} - ${item.link}`;
+    });
+    console.log(formattedResults);
+
+    const reply = `Here are the results for your query: ${query}:\n${formattedResults.join("\n")}`;
+
+    submitMessageFn(reply);
   }
 
   private tryToFindKnowledgeBaseRelatedQuestion(payload): string {

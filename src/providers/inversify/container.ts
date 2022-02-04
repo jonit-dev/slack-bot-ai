@@ -1,5 +1,5 @@
-import { OpenAI } from "@providers/open-ai/OpenAI";
 import { SlackBot } from "@providers/slack-bot/SlackBot";
+import { StackOverflow } from "@providers/stack-overflow/StackOverflow";
 import { Container } from "inversify";
 import { buildProviderModule } from "inversify-binding-decorators";
 import { ServerHelper } from "../server/ServerHelper";
@@ -13,6 +13,6 @@ export const serverHelper = container.get<ServerHelper>(ServerHelper);
 
 export const slackBot = container.get<SlackBot>(SlackBot);
 
-export const openAI = container.get<OpenAI>(OpenAI);
+export const stackOverflow = container.get<StackOverflow>(StackOverflow);
 
 export { container };

@@ -59,8 +59,10 @@
     "mongoose-query-parser": "^1.2.1",
     "node-cron": "^3.0.0",
     "node-json-db": "^1.4.1",
+    "object-to-querystring": "^1.0.8",
     "openai": "^2.0.2",
     "prettyjson": "^1.2.5",
+    "qs": "^6.10.3",
     "sift": "^15.1.3",
     "string-similarity": "^4.0.4",
     "tsconfig-paths": "^3.12.0"
