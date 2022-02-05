@@ -3,7 +3,6 @@ import { OpenAI } from "@providers/open-ai/OpenAI";
 import { StackOverflow } from "@providers/stack-overflow/StackOverflow";
 import { App } from "@slack/bolt";
 import { provide } from "inversify-binding-decorators";
-import stringSimilarity from "string-similarity";
 
 @provide(SlackBot)
 export class SlackBot {
@@ -124,9 +123,7 @@ export class SlackBot {
         const splittedMessage = msg.split(" ");
 
         for (const slice of splittedMessage) {
-          const similarity = stringSimilarity.compareTwoStrings(slice.toLocaleLowerCase(), keyword.toLocaleLowerCase());
-
-          if (similarity > 0.6) {
+          if (slice.match(new RegExp(`${keyword}`, "ig"))) {
             return faqItem.answer;
           }
         }
