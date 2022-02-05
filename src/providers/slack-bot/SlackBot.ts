@@ -60,6 +60,7 @@ export class SlackBot {
       // Call chat.postMessage with the built-in client
 
       if (incomingMessage.toLowerCase().includes("search on stackoverflow:")) {
+        console.log("searching on stackoverflow...");
         await this.checkForStackOverflowQuestions(incomingMessage, submitMessageFn);
         return;
       }
@@ -89,11 +90,14 @@ export class SlackBot {
   private async checkForStackOverflowQuestions(incomingMessage: string, submitMessageFn): Promise<void> {
     const query = incomingMessage.split(":")[1];
 
-    console.log(query);
-
-    const search = await this.stackOverflow.search({
-      intitle: query,
+    const search = await this.stackOverflow.searchSimilar({
+      title: query,
+      page: 1,
+      order: "desc",
+      sort: "activity",
     });
+
+    console.log(`Searching for ${query} - Total results: ${search.items.length}`);
 
     if (search.items.length === 0) {
       submitMessageFn("Hmm... I didn't find anything useful for you. Sorry!");

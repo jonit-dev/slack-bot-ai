@@ -9,13 +9,17 @@ import { IStackOverflowResponseItem } from "types/StackOverflowTypes";
 export class StackOverflow {
   private accessToken: string = process.env.STACKOVERFLOW_ACCESS_TOKEN;
 
-  public async search(params: Record<string, unknown>): Promise<{ items: IStackOverflowResponseItem[] }> {
+  public async searchSimilar(params: Record<string, unknown>): Promise<{ items: IStackOverflowResponseItem[] }> {
+    const queryObj = objectToQuery({
+      ...params,
+      site: "stackoverflow",
+    });
+
+    console.log(queryObj);
+
     const response = await this.request({
       method: "GET",
-      url: `/search${objectToQuery({
-        ...params,
-        site: "stackoverflow",
-      })}`,
+      url: `/similar${queryObj}`,
     });
 
     return response.data;

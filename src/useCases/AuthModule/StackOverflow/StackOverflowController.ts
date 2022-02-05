@@ -11,8 +11,8 @@ export class StackOverflowController implements interfaces.Controller {
   @httpGet("/search")
   private async search(@request() req: Request, @response() res: Response): Promise<any> {
     try {
-      const response = await this.stackOverflow.search({
-        intitle: "what is nodejs",
+      const response = await this.stackOverflow.searchSimilar({
+        title: "what is nodejs",
       });
 
       return res.status(HttpStatus.OK).send(response);

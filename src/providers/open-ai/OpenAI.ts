@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { provide } from "inversify-binding-decorators";
-import _ from "lodash";
 import { Configuration, CreateCompletionResponse, OpenAIApi } from "openai";
 
 @provide(OpenAI)
@@ -18,8 +17,7 @@ export class OpenAI {
     try {
       const response = await this.api.createCompletion("text-davinci-001", {
         prompt,
-        n: _.random(20, 60),
-        max_tokens: 50,
+        max_tokens: 300,
         temperature: 1,
         presence_penalty: 1,
       });
